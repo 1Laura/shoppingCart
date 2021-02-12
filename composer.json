@@ -1,0 +1,11 @@
+{
+    "name": "lenovo/shopping-cart",
+    "description": "ShoppingCartApp",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "app\\":"app/"
+        }
+    },
+    "require": {}
+}
