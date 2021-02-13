@@ -86,4 +86,11 @@ class ProductsReader
         return $csv;
     }
 
+    public function getProductName()
+    {
+        
+    }
+
+
+
 }
