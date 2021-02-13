@@ -10,4 +10,5 @@ require 'vendor/autoload.php';
 $shop = new Shop;
 echo "Set currency \n";
 $shop->setCurrency();
-
+echo "Data from text file \n";
+$shop->getDataFromTextFile();

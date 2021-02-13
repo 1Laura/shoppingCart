@@ -30,28 +30,23 @@ class Shop
 //        print_r(readline_list_history());
 //        print_r($dataArray['currency']);
         print_r($dataArray);
-
-
     }
 
 
     public function getDataFromTextFile()
     {
-        // CSV failo turinio priskyrimas kintamajam
-        $connR = fopen('../data.txt', 'r');
-        $data = fgetcsv($connR);
-        fclose($connR);
-        echo $data;
+        $arrayFromTextFile = [];
+
+        if (($connR = fopen('bin/data.txt', 'r')) !== false) {
+            while ($txtOneRow = fgetcsv($connR, 100, ';')) {
+                $arrayFromTextFile[] = $txtOneRow;
+            }
+            fclose($connR);
+        }
+        print_r($arrayFromTextFile);
     }
 
 
-//    function pause()
-//    {
-//        $handle = fopen("php://stdin", "r");
-//        do {
-//            $line = fgets($handle);
-//        } while ($line == '');
-//        fclose($handle);
-//        return $line;
-//    }
+
+
 }
