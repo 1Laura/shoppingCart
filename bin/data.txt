@@ -1,3 +1,4 @@
+id;code;name;quantity;price;currency
 1;mbp;Macbook Pro;2;29.99;EUR
 2;zen;Asus Zenbook;3;99.99;USD
 3;mbp;Macbook Pro;5;100.09;GPB

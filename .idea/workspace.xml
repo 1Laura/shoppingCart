@@ -2,15 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="338fa0b8-e86c-4e16-a849-a3be884fba00" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/bin/data.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/Shop.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/data/data.text" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/data/data.txt" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Product.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ProductsReader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/bin/data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/bin/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/bin/test.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Shop.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Shop.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +69,7 @@
       <workItem from="1613081566006" duration="1073000" />
       <workItem from="1613141457288" duration="1747000" />
       <workItem from="1613143247714" duration="623000" />
-      <workItem from="1613145143438" duration="11141000" />
+      <workItem from="1613145143438" duration="22392000" />
     </task>
     <task id="LOCAL-00001" summary="Initial">
       <created>1613081799595</created>
@@ -94,7 +92,21 @@
       <option name="project" value="LOCAL" />
       <updated>1613141759662</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="created method get data from data.txt">
+      <created>1613226697119</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1613226697119</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added id">
+      <created>1613226727095</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1613226727095</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -111,7 +123,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="origin/main" />
                       </list>
                     </value>
                   </entry>
@@ -128,7 +140,9 @@
     <MESSAGE value="Initial" />
     <MESSAGE value="Fixed app to App" />
     <MESSAGE value="Created data" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created data" />
+    <MESSAGE value="created method get data from data.txt" />
+    <MESSAGE value="Added id" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added id" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -4,6 +4,7 @@ namespace src;
 
 class Shop
 {
+    private $arrayFromTextFile = [];
 
     public function __construct()
     {
@@ -33,20 +34,33 @@ class Shop
     }
 
 
-    public function getDataFromTextFile()
-    {
-        $arrayFromTextFile = [];
+//    public function getDataFromTextFile()
+//    {
+//        if (($connR = fopen('bin/data.txt', 'r')) !== false) {
+//            while ($txtOneRow = fgetcsv($connR, 100, ';')) {
+//                $arrayFromTextFile[] = $txtOneRow;
+//            }
+//            fclose($connR);
+//        }
+////        return $arrayFromTextFile;
+//        print_r($arrayFromTextFile);
+//    }
 
-        if (($connR = fopen('bin/data.txt', 'r')) !== false) {
-            while ($txtOneRow = fgetcsv($connR, 100, ';')) {
-                $arrayFromTextFile[] = $txtOneRow;
-            }
-            fclose($connR);
-        }
-        print_r($arrayFromTextFile);
+    public function displayAllDataFromTextFile()
+    {
+        $file = file_get_contents("bin/data.txt", "r");
+        print_r($file);
     }
 
+    public function convertCurrency($setCurrency, $arrayFromTextFile)
+    {
+        if ($setCurrency == "eur") {
+            foreach ($arrayFromTextFile as $item) {
 
+            }
+        }
+
+    }
 
 
 }

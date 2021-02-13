@@ -1,11 +1,10 @@
 {
-    "name": "lenovo/shopping-cart",
-    "description": "ShoppingCartApp",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "src\\":"src/"
-        }
-    },
-    "require": {}
+  "name": "lenovo/shopping-cart",
+  "description": "ShoppingCartApp",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "src\\": "src/"
+    }
+  }
 }
