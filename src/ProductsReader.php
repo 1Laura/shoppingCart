@@ -56,7 +56,7 @@ class ProductsReader
                 $setter = $productClass->getMethod('set' . ucfirst($key));
                 $setter->invoke($productObj, $fields[$index]);
             }
-            $csv[] = $productObj;
+            $csv[$productObj->getId()] = $productObj;
 
         }
 
