@@ -1,7 +1,7 @@
 <?php
 
 
-namespace src;
+namespace app\src;
 
 
 class Cart
@@ -18,8 +18,14 @@ class Cart
 
     public function isQuantityInStock($warehouseProduct, $quantityAsked)
     {
-        if ($warehouseProduct->getQuantity() < $quantityAsked) {
-            echo "You need to choose a quantity less than" . $warehouseProduct->getQuantity() . PHP_EOL;
+        if ($warehouseProduct->getQuantity() <= 0) {
+            echo "Sorry, product is out of stock" . PHP_EOL;
+            return false;
+        } else {
+            if ($warehouseProduct->getQuantity() < $quantityAsked) {
+                echo "You need to choose a quantity less than " . $warehouseProduct->getQuantity() . PHP_EOL;
+
+            }
             return false;
         }
         return true;
