@@ -2,9 +2,15 @@
   "name": "lenovo/shopping-cart",
   "description": "ShoppingCartApp",
   "license": "MIT",
+  "authors": [
+    {
+      "name": "Laura Baltrukone",
+      "email": "baltrukone@gmail.com"
+    }
+  ],
   "autoload": {
     "psr-4": {
-      "src\\": "src/"
+      "app\\": "./"
     }
   },
   "require": {
