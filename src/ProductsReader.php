@@ -1,7 +1,7 @@
 <?php
 
 
-namespace src;
+namespace app\src;
 
 
 use ReflectionClass;
@@ -57,9 +57,7 @@ class ProductsReader
                 $setter->invoke($productObj, $fields[$index]);
             }
             $csv[$productObj->getId()] = $productObj;
-
         }
-
         return $csv;
     }
 
