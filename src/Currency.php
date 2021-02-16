@@ -1,6 +1,6 @@
 <?php
 
-namespace src;
+namespace app\src;
 
 class Currency
 {
@@ -34,9 +34,7 @@ class Currency
             $defaultCurrency = $this->currencyArr['3'];
         } else {
             echo "You need to choose a currency" . PHP_EOL;
-//            $currencyAsked = readline("Type number which currency you want to set default: ");
-//            $defaultCurrency = false;
-            exit;
+            $defaultCurrency = '';
         }
 
         return $defaultCurrency;
