@@ -10,7 +10,21 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\bin\test.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\src\Currency.php">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\src\ProductsReader.php">
           <value>
             <Attribute>
               <option name="separator" value=";" />

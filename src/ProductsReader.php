@@ -32,7 +32,7 @@ class ProductsReader
         $header = array_map('trim', explode($options['delimiter'], array_shift($lines)));
 
         // Build the associative array
-        $csv = array();
+        $txt = array();
         $productClass = new ReflectionClass(Product::class);
         foreach ($lines as $line) {
             // Skip if empty
@@ -47,18 +47,12 @@ class ProductsReader
                 $productClass->hasProperty($key);
                 $productClass->hasMethod('set' . ucfirst($key));
 
-//                if (!$productClass->hasProperty($key)) {
-//                    throw new Exception($key . ' is not a valid property');
-//                }
-//                if (!$productClass->hasMethod('set' . ucfirst($key))) {
-//                    throw new Exception($key . ' is missing a setter');
-//                }
                 $setter = $productClass->getMethod('set' . ucfirst($key));
                 $setter->invoke($productObj, $fields[$index]);
             }
-            $csv[$productObj->getId()] = $productObj;
+            $txt[$productObj->getId()] = $productObj;
         }
-        return $csv;
+        return $txt;
     }
 
 

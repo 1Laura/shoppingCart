@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="338fa0b8-e86c-4e16-a849-a3be884fba00" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/csv-plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-plugin.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/bin/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/test.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Cart.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cart.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProductsReader.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProductsReader.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +78,8 @@
       <workItem from="1613400023735" duration="322000" />
       <workItem from="1613400369289" duration="19836000" />
       <workItem from="1613490170093" duration="14980000" />
-      <workItem from="1613561593393" duration="12816000" />
+      <workItem from="1613561593393" duration="15567000" />
+      <workItem from="1613593752366" duration="7345000" />
     </task>
     <task id="LOCAL-00001" summary="Initial">
       <created>1613081799595</created>
@@ -174,7 +179,21 @@
       <option name="project" value="LOCAL" />
       <updated>1613576630952</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary=".idea">
+      <created>1613590729415</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1613590729415</updated>
+    </task>
+    <task id="LOCAL-00016" summary=".idea">
+      <created>1613590748775</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1613590748775</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -218,7 +237,8 @@
     <MESSAGE value="With autoload." />
     <MESSAGE value="added fn" />
     <MESSAGE value="it works, if all happy path" />
-    <option name="LAST_COMMIT_MESSAGE" value="it works, if all happy path" />
+    <MESSAGE value=".idea" />
+    <option name="LAST_COMMIT_MESSAGE" value=".idea" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

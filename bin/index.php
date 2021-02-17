@@ -24,21 +24,27 @@ echo PHP_EOL;
 echo "Default currency set: $defaultCurrency" . PHP_EOL;
 echo PHP_EOL;
 
-
-//reikia paklausti ar nori pasirinkti produktu
+//for user
 $wantToChooseProduct = readline("If you want to choose a product - Enter [yes], otherwise enter [no] : ");
 echo PHP_EOL;
 $cartArray = [];
 // all products array
 $dataArray = $products->txt_parse("bin/data.txt");
 
-if ($wantToChooseProduct == 'yes') {
-    //jei taip, jei nori pasirinkti produkta
-    // -> produktu listas ir kiekis
-    while ($wantToChooseProduct == 'yes') {
+//only 'yes' or 'no'
+//doesnt work
+//print_r(is_string($wantToChooseProduct) . PHP_EOL);
+//while ($wantToChooseProduct === "yes" || $wantToChooseProduct === "no") {
+//    $wantToChooseProduct = readline("You need to write! If you want to choose a product - Enter [ yes ], otherwise enter [ no ] : " . PHP_EOL);
+//    print_r($wantToChooseProduct === "yes" ? true : false . PHP_EOL);
+//    echo PHP_EOL;
+//}
+
+if ($wantToChooseProduct === 'yes') {
+    while ($wantToChooseProduct === 'yes') {
 
         // a list of products is displayed
-        print_r("ID " . "Product Name" . ' ' . "Price" . ' ' . "Currency" . PHP_EOL);
+        print_r("ID " . "Product Name" . ' ' . "Price" . ' ' . "Currency" . 'Quantity' . PHP_EOL);
         foreach ($dataArray as $product) {
             $price = $currency->convertCurrency($defaultCurrency, $product->getPrice(), $product->getCurrency());
             print_r($product->getId() . '. ' . $product->getName() . ', ' . $price . ' ' . $defaultCurrency . ' :  ' . $product->getQuantity() . PHP_EOL);
@@ -53,13 +59,10 @@ if ($wantToChooseProduct == 'yes') {
         // the quantity of the product selected by the user
         (int)$productQuantityAsked = readline("Enter the product quantity: " . PHP_EOL);
         if ($cart->isQuantityInStock($productSelected, $productQuantityAsked)) {
-            // jei kiekis yra warehouse
-//            while ($cart->isQuantityInStock($productSelected, $productQuantityAsked)) {
-            // klausk kol kiekis bus reikiamas
             // product remove from warehouse
             $productSelected->setQuantity($productSelected->getQuantity() - $productQuantityAsked);
             echo PHP_EOL;
-            echo "Selected quantity: $productQuantityAsked" . PHP_EOL;
+//            echo "Selected quantity: $productQuantityAsked" . PHP_EOL;
 
             //add to cart
             if (array_key_exists($selectedProductNumber, $cartArray)) {
@@ -68,7 +71,6 @@ if ($wantToChooseProduct == 'yes') {
                 $cartArray[$selectedProductNumber] = $productQuantityAsked;
             }
         }
-//        echo PHP_EOL;
         $wantToChooseProduct = readline("If you want to choose a product - Enter [yes], otherwise enter [no] :  " . PHP_EOL);
         echo PHP_EOL;
     }
@@ -76,11 +78,16 @@ if ($wantToChooseProduct == 'yes') {
     echo PHP_EOL;
     echo "Thank you!";
 }
-if ($wantToChooseProduct == 'no') {
-    //jei nenori pasirinkti produktu
-    //->parodyti krepseli
+if ($wantToChooseProduct === 'no') {
+    if (empty($cartArray)) {
+        echo PHP_EOL;
+        echo "We are waiting for your return !";
+        exit();
+    }
+
+    //if user want to remove product
     $totalBalance = 0.00;
-    echo "You carts: " . PHP_EOL;
+    echo "Your carts: " . PHP_EOL;
     foreach ($cartArray as $key => $cartProduct) {
         $cartProductQuantity = $cartArray[$key];
         $cartProductPrice = $currency->convertCurrency($defaultCurrency, $dataArray[$key]->getPrice(), $dataArray[$key]->getCurrency());
@@ -89,96 +96,84 @@ if ($wantToChooseProduct == 'no') {
     }
     print_r("Total balance:  " . $totalBalance . PHP_EOL);
 
-    //paklausti ar nori issimti produktus
+    //remove from cart
     echo PHP_EOL;
     $wantToRemoveProduct = readline("If you want to remove a product - Enter [yes], otherwise enter [no] : " . PHP_EOL);
     echo PHP_EOL;
-    //jei taip,
-    if ($wantToRemoveProduct == 'yes') {
-        while ($wantToRemoveProduct == 'yes') {
+    // if  user want to remove a product
+    if ($wantToRemoveProduct === 'yes') {
+        while ($wantToRemoveProduct === 'yes') {
 
-            // listas krepselio produktu
+            // cartArray list
             foreach ($cartArray as $key => $cartProduct) {
                 $cartProductName = $dataArray[$key]->getName();
                 $cartProductQuantity = $cartArray[$key];
                 $cartProductPrice = $currency->convertCurrency($defaultCurrency, $dataArray[$key]->getPrice(), $dataArray[$key]->getCurrency());
-//            $totalBalance += $cartProductPrice * $cartProductQuantity;
                 echo $key . ' . ' . $cartProductName . ' : ' . $cartProductPrice . ' * ' . $cartProductQuantity . ' = ' . $cartProductPrice * $cartProductQuantity . PHP_EOL;
             }
-
-            //paklausti kuri produkta nori isimti
+            //what product want to remove
             echo PHP_EOL;
             $whichProductSelectedId = readline("Type number which product you want to remove from cart  : " . PHP_EOL);
             echo PHP_EOL;
 
             if ($cart->isProductIdIs($whichProductSelectedId, $cartArray)) {
-//            $productToReturnToWarehouse = $dataArray[$whichProductSelectedId];
-//            echo $productToReturnToWarehouse->getName() . ' : ' . $productToReturnToWarehouse->getQuantity() . PHP_EOL;
-                //paklausti kiek nori isimti
+                //quantity of product to remove
                 (int)$quantityOfProductToRemove = readline("Enter the quantity of product you want to  remove : " . PHP_EOL);
                 echo PHP_EOL;
-//            echo "Selected quantity: $quantityOfProductToRemove" . PHP_EOL;
-                //isimti is krepselio
+
+                //remove from cart
                 $productToReturnToWarehouse = $dataArray[$whichProductSelectedId];
+                //add to cart
+                if (array_key_exists($selectedProductNumber, $cartArray)) {
+                    $cartArray[$selectedProductNumber] += $productQuantityAsked;
+                } else {
+                    $cartArray[$selectedProductNumber] = $productQuantityAsked;
+                }
+
+
                 if ($cartArray[$whichProductSelectedId] >= $quantityOfProductToRemove) {
                     echo "Selected quantity: $quantityOfProductToRemove" . PHP_EOL;
                     $cartArray[$whichProductSelectedId] -= $quantityOfProductToRemove;
-                    //prideti prie warehouso ta kieki
+
+//                    if ($cartArray[$whichProductSelectedId] === 0) {
+//                        unset($cartArray[$whichProductSelectedId]);
+//                    }
+
+                    //return to warehouse
                     $productToReturnToWarehouse->setQuantity($productToReturnToWarehouse->getQuantity() + $quantityOfProductToRemove);
                     $totalBalanceAfterRemoved = 0.00;
-                    //total balance
-//                foreach ($cartArray as $key => $cartProduct) {
-//                    $cartProductName = $dataArray[$key]->getName();
-//                    $cartProductQuantity = $cartArray[$key];
-//                    $cartProductPrice = $currency->convertCurrency($defaultCurrency, $dataArray[$key]->getPrice(), $dataArray[$key]->getCurrency());
-//                    echo $key . ' . ' . $cartProductName . ' : ' . $cartProductPrice . ' * ' . $cartProductQuantity . ' = ' . $cartProductPrice * $cartProductQuantity . PHP_EOL;
-//
-//                    $totalBalanceAfterRemoved += $cartProductPrice * $cartProductQuantity;
-//                }
-//                // ir skaiciuoja teisingai
-//                echo "Total Balance: " . $totalBalanceAfterRemoved . PHP_EOL;
-                    //grazina teisingai
 
                 } else {
-                    echo "Pasirinkite mazesni kieki nei $cartArray[$whichProductSelectedId] " . PHP_EOL;
-                    echo PHP_EOL;
-                    $wantToRemoveProduct = readline("If you want to remove a product - Enter [yes], otherwise enter [no] : " . PHP_EOL);
-                    echo PHP_EOL;
+                    echo "Please select less than $cartArray[$whichProductSelectedId] " . PHP_EOL;
                 }
             } else {
-                echo "Tokio product Number nera";
-                echo PHP_EOL;
-                $wantToRemoveProduct = readline("If you want to remove a product - Enter [yes], otherwise enter [no] : " . PHP_EOL);
-                echo PHP_EOL;
+                echo "There is no such product in your cart";
             }
             echo PHP_EOL;
             $wantToRemoveProduct = readline("If you want to remove a product - Enter [yes], otherwise enter [no] : " . PHP_EOL);
             echo PHP_EOL;
         }
     }
-//     else {
-//        //jei ne
-//        // nenori isimti
-//        // parodyti total balance
-//        echo 'idomu kur cia patenka';
-//    }
-    if ($wantToRemoveProduct == 'no') {
-        //jei ne
-        // nenori isimti
-        // parodyti total balance
-        echo 'idomu kur cia patenka';
-        //total balance
+    if ($wantToRemoveProduct === 'no') {
+        //cart array list
+        echo "Your carts: " . PHP_EOL;
         foreach ($cartArray as $key => $cartProduct) {
             $cartProductName = $dataArray[$key]->getName();
             $cartProductQuantity = $cartArray[$key];
             $cartProductPrice = $currency->convertCurrency($defaultCurrency, $dataArray[$key]->getPrice(), $dataArray[$key]->getCurrency());
+            $finalTotalBalance += $cartProductPrice * $cartProductQuantity;
             echo $key . ' . ' . $cartProductName . ' : ' . $cartProductPrice . ' * ' . $cartProductQuantity . ' = ' . $cartProductPrice * $cartProductQuantity . PHP_EOL;
-
-            $totalBalanceAfterRemoved += $cartProductPrice * $cartProductQuantity;
         }
-        // ir skaiciuoja teisingai
-        echo "Total Balance: " . $totalBalanceAfterRemoved . PHP_EOL;
-        //grazina teisingai
+        // //total balance
+        echo "Total Balance: " . $finalTotalBalance . PHP_EOL;
+        echo "Thank you!" . PHP_EOL;;
+        echo PHP_EOL;
+
+        echo "Warehouse: " . PHP_EOL;
+        foreach ($dataArray as $product) {
+            $price = $currency->convertCurrency($defaultCurrency, $product->getPrice(), $product->getCurrency());
+            print_r($product->getId() . '. ' . $product->getName() . ', ' . $price . ' ' . $defaultCurrency . ' :  ' . $product->getQuantity() . PHP_EOL);
+        }
     }
 }
 
