@@ -4,7 +4,6 @@
     <list default="true" id="338fa0b8-e86c-4e16-a849-a3be884fba00" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/bin/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cart.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cart.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +74,7 @@
       <workItem from="1613400023735" duration="322000" />
       <workItem from="1613400369289" duration="19836000" />
       <workItem from="1613490170093" duration="14980000" />
-      <workItem from="1613561593393" duration="3353000" />
+      <workItem from="1613561593393" duration="11815000" />
     </task>
     <task id="LOCAL-00001" summary="Initial">
       <created>1613081799595</created>
@@ -161,7 +160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613466478152</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="added fn">
+      <created>1613568448941</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1613568448941</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,7 +209,8 @@
     <MESSAGE value="autoload.php included. Classes path fixed.&#10;Was corrected the default currency set condition. Condition if user want to choose product is in progress." />
     <MESSAGE value="Namespace fixed." />
     <MESSAGE value="With autoload." />
-    <option name="LAST_COMMIT_MESSAGE" value="With autoload." />
+    <MESSAGE value="added fn" />
+    <option name="LAST_COMMIT_MESSAGE" value="added fn" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
