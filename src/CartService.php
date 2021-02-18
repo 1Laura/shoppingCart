@@ -18,8 +18,6 @@ class CartService
 
     public function isQuantityInStock($warehouseProduct, $quantityAsked)
     {
-
-
         if ($warehouseProduct->getQuantity() > 0) {
             if ($warehouseProduct->getQuantity() >= $quantityAsked) {
                 return true;

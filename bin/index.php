@@ -13,20 +13,11 @@ $products = new ProductsReader();
 $defaultCurrency = $cart->applyDefaultCurrency($currency);
 $productsWarehouse = $products->txt_parse("bin/data.txt");
 
-//only 'yes' or 'no'
-//doesnt work
-//print_r(is_string($wantToChooseProduct) . PHP_EOL);
-//while ($wantToChooseProduct === "yes" || $wantToChooseProduct === "no") {
-//    $wantToChooseProduct = readline("You need to write! If you want to choose a product - Enter [ yes ], otherwise enter [ no ] : " . PHP_EOL);
-//    print_r($wantToChooseProduct === "yes" ? true : false . PHP_EOL);
-//    echo PHP_EOL;
-//}
-
 $cartArray = [];
-$wantToChooseProduct = readline("If you want to choose a product - Enter [yes], otherwise enter [no] : ");
+$chooseProduct = readline("If you want to choose a product - Enter [yes], otherwise enter [no] : ");
 echo PHP_EOL;
-if ($wantToChooseProduct === 'yes') {
-    while ($wantToChooseProduct === 'yes') {
+if ($chooseProduct === 'yes') {
+    while ($chooseProduct === 'yes') {
 
         // a list of products is displayed
         print_r("ID " . "Product Name" . ' ' . "Price" . ' ' . "Currency" . 'Quantity' . PHP_EOL);
@@ -48,7 +39,8 @@ if ($wantToChooseProduct === 'yes') {
             // product remove from warehouse
             $productSelected->setQuantity($productSelected->getQuantity() - $productQuantityAsked);
             echo PHP_EOL;
-//            echo "Selected quantity: $productQuantityAsked" . PHP_EOL;
+
+            // echo "Selected quantity: $productQuantityAsked" . PHP_EOL;
 
             //add to cart
             if (array_key_exists($selectedProductNumber, $cartArray)) {
@@ -57,20 +49,19 @@ if ($wantToChooseProduct === 'yes') {
                 $cartArray[$selectedProductNumber] = $productQuantityAsked;
             }
         }
-        $wantToChooseProduct = readline("If you want to choose a product - Enter [yes], otherwise enter [no] :  " . PHP_EOL);
+        $chooseProduct = readline("If you want to choose a product - Enter [yes], otherwise enter [no] :  " . PHP_EOL);
         echo PHP_EOL;
     }
 } else {
     echo PHP_EOL;
     echo "Thank you!";
 }
-if ($wantToChooseProduct === 'no') {
+if ($chooseProduct === 'no') {
     if (empty($cartArray)) {
         echo PHP_EOL;
         echo "We are waiting for your return !";
         exit();
     }
-
     //if user want to remove product
     $totalBalance = 0.00;
     echo "Your carts: " . PHP_EOL;
@@ -78,7 +69,7 @@ if ($wantToChooseProduct === 'no') {
         $cartProductQuantity = $cartArray[$key];
         $cartProductPrice = $currency->convertCurrency($defaultCurrency, $productsWarehouse[$key]->getPrice(), $productsWarehouse[$key]->getCurrency());
         print_r($productsWarehouse[$key]->getId() . ' . ' . $productsWarehouse[$key]->getName() . ' , ' . $cartProductQuantity . ' , ' . $cartProductPrice . PHP_EOL);
-        $totalBalance += $cartProductPrice * $cartProductQuantity;// sitas teisingai
+        $totalBalance += $cartProductPrice * $cartProductQuantity;
     }
     print_r("Total balance:  " . $totalBalance . PHP_EOL);
 
@@ -113,10 +104,6 @@ if ($wantToChooseProduct === 'no') {
                 if ($cartArray[$whichProductSelectedId] >= $quantityOfProductToRemove) {
                     echo "Selected quantity: $quantityOfProductToRemove" . PHP_EOL;
                     $cartArray[$whichProductSelectedId] -= $quantityOfProductToRemove;
-
-//                    if ($cartArray[$whichProductSelectedId] === 0) {
-//                        unset($cartArray[$whichProductSelectedId]);
-//                    }
 
                     //return to warehouse
                     $productToReturnToWarehouse->setQuantity($productToReturnToWarehouse->getQuantity() + $quantityOfProductToRemove);
@@ -156,4 +143,3 @@ if ($wantToChooseProduct === 'no') {
         }
     }
 }
-
