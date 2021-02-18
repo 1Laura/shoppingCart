@@ -39,7 +39,6 @@ if ($chooseProduct === 'yes') {
             // product remove from warehouse
             $productSelected->setQuantity($productSelected->getQuantity() - $productQuantityAsked);
             echo PHP_EOL;
-
             // echo "Selected quantity: $productQuantityAsked" . PHP_EOL;
 
             //add to cart
