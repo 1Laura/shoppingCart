@@ -2,34 +2,16 @@
 <?php
 require 'vendor/autoload.php';
 
-use app\src\Cart;
+use app\src\CartService;
 use app\src\ProductsReader;
 use app\src\Currency;
 
 $currency = new Currency;
-$cart = new Cart();
+$cart = new CartService();
 $products = new ProductsReader();
 
-
-//user set default currency
-$currencyDisplay = $currency->currencyList();
-$inputCurrency = readline("Type number which currency you want to set default: ") . PHP_EOL;
-
-$defaultCurrency = $currency->setCurrency($inputCurrency);
-while ($defaultCurrency === '') {
-    $inputCurrency = readline("Enter number which currency you want to set default: ") . PHP_EOL;
-    $defaultCurrency = $currency->setCurrency($inputCurrency);
-}
-echo PHP_EOL;
-echo "Default currency set: $defaultCurrency" . PHP_EOL;
-echo PHP_EOL;
-
-//for user
-$wantToChooseProduct = readline("If you want to choose a product - Enter [yes], otherwise enter [no] : ");
-echo PHP_EOL;
-$cartArray = [];
-// all products array
-$dataArray = $products->txt_parse("bin/data.txt");
+$defaultCurrency = $cart->applyDefaultCurrency($currency);
+$productsWarehouse = $products->txt_parse("bin/data.txt");
 
 //only 'yes' or 'no'
 //doesnt work
@@ -40,20 +22,24 @@ $dataArray = $products->txt_parse("bin/data.txt");
 //    echo PHP_EOL;
 //}
 
+$cartArray = [];
+$wantToChooseProduct = readline("If you want to choose a product - Enter [yes], otherwise enter [no] : ");
+echo PHP_EOL;
 if ($wantToChooseProduct === 'yes') {
     while ($wantToChooseProduct === 'yes') {
 
         // a list of products is displayed
         print_r("ID " . "Product Name" . ' ' . "Price" . ' ' . "Currency" . 'Quantity' . PHP_EOL);
-        foreach ($dataArray as $product) {
+        foreach ($productsWarehouse as $product) {
             $price = $currency->convertCurrency($defaultCurrency, $product->getPrice(), $product->getCurrency());
             print_r($product->getId() . '. ' . $product->getName() . ', ' . $price . ' ' . $defaultCurrency . ' :  ' . $product->getQuantity() . PHP_EOL);
         }
         echo PHP_EOL;
+
         //  user selected product
         $inputProductNumber = readline("Type number which product you want add to cart: " . PHP_EOL);
-        $selectedProductNumber = $cart->getSelectedProductId($inputProductNumber, $dataArray);
-        $productSelected = $dataArray[$selectedProductNumber];
+        $selectedProductNumber = $cart->getSelectedProductId($inputProductNumber, $productsWarehouse);
+        $productSelected = $productsWarehouse[$selectedProductNumber];
         print_r($productSelected->getName() . " : " . $productSelected->getQuantity() . PHP_EOL);
 
         // the quantity of the product selected by the user
@@ -90,8 +76,8 @@ if ($wantToChooseProduct === 'no') {
     echo "Your carts: " . PHP_EOL;
     foreach ($cartArray as $key => $cartProduct) {
         $cartProductQuantity = $cartArray[$key];
-        $cartProductPrice = $currency->convertCurrency($defaultCurrency, $dataArray[$key]->getPrice(), $dataArray[$key]->getCurrency());
-        print_r($dataArray[$key]->getId() . ' . ' . $dataArray[$key]->getName() . ' , ' . $cartProductQuantity . ' , ' . $cartProductPrice . PHP_EOL);
+        $cartProductPrice = $currency->convertCurrency($defaultCurrency, $productsWarehouse[$key]->getPrice(), $productsWarehouse[$key]->getCurrency());
+        print_r($productsWarehouse[$key]->getId() . ' . ' . $productsWarehouse[$key]->getName() . ' , ' . $cartProductQuantity . ' , ' . $cartProductPrice . PHP_EOL);
         $totalBalance += $cartProductPrice * $cartProductQuantity;// sitas teisingai
     }
     print_r("Total balance:  " . $totalBalance . PHP_EOL);
@@ -106,9 +92,9 @@ if ($wantToChooseProduct === 'no') {
 
             // cartArray list
             foreach ($cartArray as $key => $cartProduct) {
-                $cartProductName = $dataArray[$key]->getName();
+                $cartProductName = $productsWarehouse[$key]->getName();
                 $cartProductQuantity = $cartArray[$key];
-                $cartProductPrice = $currency->convertCurrency($defaultCurrency, $dataArray[$key]->getPrice(), $dataArray[$key]->getCurrency());
+                $cartProductPrice = $currency->convertCurrency($defaultCurrency, $productsWarehouse[$key]->getPrice(), $productsWarehouse[$key]->getCurrency());
                 echo $key . ' . ' . $cartProductName . ' : ' . $cartProductPrice . ' * ' . $cartProductQuantity . ' = ' . $cartProductPrice * $cartProductQuantity . PHP_EOL;
             }
             //what product want to remove
@@ -122,14 +108,7 @@ if ($wantToChooseProduct === 'no') {
                 echo PHP_EOL;
 
                 //remove from cart
-                $productToReturnToWarehouse = $dataArray[$whichProductSelectedId];
-                //add to cart
-                if (array_key_exists($selectedProductNumber, $cartArray)) {
-                    $cartArray[$selectedProductNumber] += $productQuantityAsked;
-                } else {
-                    $cartArray[$selectedProductNumber] = $productQuantityAsked;
-                }
-
+                $productToReturnToWarehouse = $productsWarehouse[$whichProductSelectedId];
 
                 if ($cartArray[$whichProductSelectedId] >= $quantityOfProductToRemove) {
                     echo "Selected quantity: $quantityOfProductToRemove" . PHP_EOL;
@@ -157,10 +136,11 @@ if ($wantToChooseProduct === 'no') {
     if ($wantToRemoveProduct === 'no') {
         //cart array list
         echo "Your carts: " . PHP_EOL;
+        $finalTotalBalance = 0.00;
         foreach ($cartArray as $key => $cartProduct) {
-            $cartProductName = $dataArray[$key]->getName();
+            $cartProductName = $productsWarehouse[$key]->getName();
             $cartProductQuantity = $cartArray[$key];
-            $cartProductPrice = $currency->convertCurrency($defaultCurrency, $dataArray[$key]->getPrice(), $dataArray[$key]->getCurrency());
+            $cartProductPrice = $currency->convertCurrency($defaultCurrency, $productsWarehouse[$key]->getPrice(), $productsWarehouse[$key]->getCurrency());
             $finalTotalBalance += $cartProductPrice * $cartProductQuantity;
             echo $key . ' . ' . $cartProductName . ' : ' . $cartProductPrice . ' * ' . $cartProductQuantity . ' = ' . $cartProductPrice * $cartProductQuantity . PHP_EOL;
         }
@@ -170,7 +150,7 @@ if ($wantToChooseProduct === 'no') {
         echo PHP_EOL;
 
         echo "Warehouse: " . PHP_EOL;
-        foreach ($dataArray as $product) {
+        foreach ($productsWarehouse as $product) {
             $price = $currency->convertCurrency($defaultCurrency, $product->getPrice(), $product->getCurrency());
             print_r($product->getId() . '. ' . $product->getName() . ', ' . $price . ' ' . $defaultCurrency . ' :  ' . $product->getQuantity() . PHP_EOL);
         }

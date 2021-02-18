@@ -4,7 +4,7 @@
 namespace app\src;
 
 
-class Cart
+class CartService
 {
 
     public function getSelectedProductId($inputProductNumber, $productsFromWarehouse)
@@ -43,5 +43,24 @@ class Cart
 
     }
 
+    /**
+     * @param Currency $currency
+     * @return string
+     */
+    function applyDefaultCurrency(Currency $currency): string
+    {
+        $currency->currencyList();
+        $inputCurrency = readline("Type number which currency you want to set default: ") . PHP_EOL;
+
+        $defaultCurrency = $currency->setCurrency($inputCurrency);
+        while ($defaultCurrency === '') {
+            $inputCurrency = readline("Enter number which currency you want to set default: ") . PHP_EOL;
+            $defaultCurrency = $currency->setCurrency($inputCurrency);
+        }
+        echo PHP_EOL;
+        echo "Default currency set: $defaultCurrency" . PHP_EOL;
+        echo PHP_EOL;
+        return $defaultCurrency;
+    }
 
 }
